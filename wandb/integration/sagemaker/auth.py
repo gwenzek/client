@@ -5,7 +5,7 @@ import wandb
 from wandb import env
 
 
-def sagemaker_auth(overrides=None, path=".", api_key=None):
+def sagemaker_auth(overrides=None, path=".", api_key=None):         # @@@ sagemaker_auth
     """Write a secrets.env file with the W&B ApiKey and any additional secrets passed.
 
     Arguments:

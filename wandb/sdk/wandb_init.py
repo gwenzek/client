@@ -92,17 +92,19 @@ class _WandbInit(object):
             settings=settings.duplicate().freeze()
         )
 
+        print(f'@@@@@@ setup kwargs.id = {kwargs['id']}')
+
         sm_config: Dict = {} if settings.sagemaker_disable else sagemaker.parse_sm_config()
         if sm_config:
             sm_api_key = sm_config.get("wandb_api_key", None)
-            sm_run, sm_env = sagemaker.parse_sm_resources()
+            sm_run, sm_env = sagemaker.parse_sm_resources()         # @@@ sm parse
             if sm_env:
                 if sm_api_key:
                     sm_env["WANDB_API_KEY"] = sm_api_key
                 settings._apply_environ(sm_env)
                 wandb.setup(settings=settings)
             for k, v in six.iteritems(sm_run):
-                kwargs.setdefault(k, v)
+                kwargs.setdefault(k, v)         # @@@ adds run_id key to kwargs (which contains id)
             self._use_sagemaker = True
 
         # Remove parameters that are not part of settings
@@ -554,7 +556,7 @@ def getcaller():
     print("Problem at:", src, line, func)
 
 
-def init(
+def init(   # @@@ init
     job_type: Optional[str] = None,
     dir=None,
     config: Union[Dict, str, None] = None,

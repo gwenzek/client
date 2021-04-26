@@ -1035,14 +1035,20 @@ class Settings(object):
         # strip out items where value is None
         param_map = dict(
             name="run_name",
-            id="run_id",
+            id="run_id",            # @@@ hmm
             tags="run_tags",
             group="run_group",
             job_type="run_job_type",
             notes="run_notes",
             dir="root_dir",
         )
-        args = {param_map.get(k, k): v for k, v in six.iteritems(args) if v is not None}
+
+        print(f'@@@@@@ args before = {args}')
+
+
+        args = {param_map.get(k, k): v for k, v in six.iteritems(args) if v is not None}        # @@@ lmao what he fuck
+
+        print(f'@@@@@@ args after = {args}')
         # fun logic to convert the resume init arg
         if args.get("resume") is not None:
             if isinstance(args["resume"], six.string_types):
