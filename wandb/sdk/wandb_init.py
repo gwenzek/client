@@ -92,7 +92,7 @@ class _WandbInit(object):
             settings=settings.duplicate().freeze()
         )
 
-        print(f'@@@@@@ setup kwargs.id = {kwargs['id']}')
+        print('@@@@@@ setup kwargs.id = {}'.format(kwargs['id']))
 
         sm_config: Dict = {} if settings.sagemaker_disable else sagemaker.parse_sm_config()
         if sm_config:
