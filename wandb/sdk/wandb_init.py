@@ -428,7 +428,9 @@ class _WandbInit(object):
 
         # resuming needs access to the server, check server_status()?
 
-        run = Run(config=config, settings=s, sweep_config=sweep_config)
+        print(f'@@@@@@@ config {config}')
+        print(f'@@@@@@@ settings {s}')
+        run = Run(config=config, settings=s, sweep_config=sweep_config)     # @@@ run
 
         # probe the active start method
         active_start_method: Optional[str] = None
@@ -497,7 +499,7 @@ class _WandbInit(object):
                     run._set_yanked_version_message(ret.yank_message)
             run._on_init()
             logger.info("communicating run to backend with 30 second timeout")
-            ret = backend.interface.communicate_run(run, timeout=30)
+            ret = backend.interface.communicate_run(run, timeout=30)        # @@@ asking for run from backend
             error_message = None
             if not ret:
                 logger.error("backend process timed out")
@@ -519,7 +521,7 @@ class _WandbInit(object):
                 logger.info("run resumed")
                 with telemetry.context(run=run) as tel:
                     tel.feature.resumed = True
-            run._set_run_obj(ret.run)
+            run._set_run_obj(ret.run)       # @@@ getting run obj
 
         logger.info("starting run threads in backend")
         # initiate run (stats and metadata probing)
@@ -743,7 +745,7 @@ def init(   # @@@ init
         wi.setup(kwargs)
         except_exit = wi.settings._except_exit
         try:
-            run = wi.init()
+            run = wi.init()     # @@@ run, wi is setup wtih kwargs
             except_exit = wi.settings._except_exit
         except (KeyboardInterrupt, Exception) as e:
             if not isinstance(e, KeyboardInterrupt):

@@ -680,7 +680,7 @@ class Settings(object):
     def _apply_environ(
         self, environ: os._Environ, _logger: Optional[_EarlyLogger] = None
     ) -> None:
-        inv_map = _build_inverse_map(env_prefix, env_settings)
+        inv_map = _build_inverse_map(env_prefix, env_settings)  # @@@ env settings
         env_dict = dict()
         for k, v in six.iteritems(environ):
             if not k.startswith(env_prefix):
@@ -697,6 +697,7 @@ class Settings(object):
 
         if _logger:
             _logger.info("setting env: {}".format(env_dict))
+        print(f'@@@@@@@@@@@@@@ env dict {env_dict}')
         self._update(env_dict, _source=self.Source.ENV)
 
     def _apply_user(
@@ -819,6 +820,10 @@ class Settings(object):
             if _override:
                 self.__override_dict[k] = _override
                 self.__override_dict_set.setdefault(k, set()).add(_override)
+
+        print(f'@@@ dict {self.__dict__}')
+        print(f'@@@ defaults {self.__defaults_dict}')
+        print(f'@@@ override {self.__override_dict}')
 
     def update(self, __d: Dict = None, **kwargs: Any) -> None:
         _source = kwargs.pop("_source", None)

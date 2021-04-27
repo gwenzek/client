@@ -585,7 +585,7 @@ class Run(object):
             return self._run_obj.starting_step
 
     @property
-    def resumed(self) -> bool:
+    def resumed(self) -> bool:      # @@@
         """
         Returns:
             (bool): whether or not the run was resumed

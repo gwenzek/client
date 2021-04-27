@@ -128,7 +128,7 @@ def get_error_reporting(default=True, env=None):
     return env.get(ERROR_REPORTING, default)
 
 
-def get_run(default=None, env=None):
+def get_run(default=None, env=None):        # @@@ this exists but not a get_resume?
     if env is None:
         env = os.environ
 
